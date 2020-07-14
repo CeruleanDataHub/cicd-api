@@ -8,7 +8,8 @@ export class CiEventsController {
   @Post('/')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Cloud CI events' })
-  async cloudCiEvents(@Body() body: any) {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  async cloudCiEvents(@Body() body: any): Promise<void> {
     let color = 'green';
     let value = 'success';
     if (body.type === 'network.cdh.cloud-ci-failure') {
