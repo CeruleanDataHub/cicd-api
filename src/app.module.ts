@@ -18,7 +18,7 @@ export class AppModule implements NestModule {
       providers: [AppService],
     };
   }
-  configure(consumer: MiddlewareConsumer) {
+  configure(consumer: MiddlewareConsumer): void {
     const webhookUrls = ['/cloud-ci-events'];
     for (const webhookUrl of webhookUrls) {
       consumer.apply(WebhookValidationMiddleware).forRoutes({

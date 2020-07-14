@@ -1,10 +1,10 @@
 import { NestMiddleware, Injectable } from '@nestjs/common';
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import * as https from 'https';
 
 @Injectable()
 export class WebhookValidationMiddleware implements NestMiddleware {
-  use(req: Request, res: Response, next: Function) {
+  use(req: Request, res: Response, next: NextFunction): void {
     const callbackUrl = req.header('webhook-request-callback');
     if (callbackUrl) {
       console.log('Trying to automatically validate webhook...');
@@ -15,7 +15,7 @@ export class WebhookValidationMiddleware implements NestMiddleware {
     }
   }
 
-  callValidationUrl = (callbackUrl: string) => {
+  callValidationUrl = (callbackUrl: string): void => {
     setTimeout(() => {
       https
         .get(callbackUrl, resp => {
